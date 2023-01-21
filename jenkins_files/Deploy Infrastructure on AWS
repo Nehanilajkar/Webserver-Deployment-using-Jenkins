@@ -1,2 +1,16 @@
 pipeline{
+  agent any
+  environment 
+    {
+        AWS_ACCESS_KEY_ID     = credentials('NSG01_AWS_ACCESS_KEY')
+        AWS_SECRET_ACCESS_KEY = credentials('NSG01_AWS_SECRET_ACCESS_KEY')
+    }
+  stages {
+        stage('Checkout Code') {
+            steps {
+                echo 'Checking out Infra as a code from repo.' 
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins', url: 'https://github.com/Nehanilajkar/Webser-Deployment-using-ansible-and-terraform.git']])            }
+        }
+}  
+
 }
