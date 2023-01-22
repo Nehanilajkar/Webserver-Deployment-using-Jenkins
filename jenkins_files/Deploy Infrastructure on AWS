@@ -15,7 +15,7 @@ pipeline{
         stage('Creating Infrastructure') {
             steps {
                 dir("terraform_files") {
-                    
+                    sh pwd
                     echo 'Initializing Terraform'
                     sh 'terraform init'
                     echo 'Terraform Apply: Creating Infra'
