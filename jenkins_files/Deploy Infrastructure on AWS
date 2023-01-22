@@ -9,8 +9,26 @@ pipeline{
         stage('Checkout Code') {
             steps {
                 echo 'Checking out Infra as a code from repo.' 
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins', url: 'https://github.com/Nehanilajkar/Webser-Deployment-using-ansible-and-terraform.git']])            }
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins', url: 'https://github.com/Nehanilajkar/Webser-Deployment-using-ansible-and-terraform.git']])           
+                }
         }
+        stage('Creating Infrastructure') {
+            steps {
+                dir("terraform_files") {
+                    
+                    echo 'Initializing Terraform'
+                    sh 'terraform init'
+                    echo 'Terraform Apply: Creating Infra'
+                    sh 'terraform plan'
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+
+
+
+
+
 }  
 
 }
