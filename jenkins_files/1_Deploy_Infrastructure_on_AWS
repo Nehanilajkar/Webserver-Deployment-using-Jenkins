@@ -1,0 +1,31 @@
+pipeline{
+  agent any
+  stages{
+    stage('Code Checkout')
+    {
+      steps{}
+    }
+    stage('Infrastructure Provisioing')
+    {
+      steps{}
+    }
+    stage('Code Build')
+    {
+      steps{}
+    }
+    stage('Code Build')
+    {
+      steps
+      { 
+        sh 'mvn clean package'
+      }
+    }
+    stage('Infrastructure Configuration')
+    {
+      steps
+      { 
+        
+      }
+    }
+  }
+}
