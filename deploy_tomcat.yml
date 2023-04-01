@@ -1,0 +1,24 @@
+---
+- hosts: tomcat_server
+  become: true
+  tasks:
+    - name: Install requirements
+      shell: |
+        apt update -y
+        apt install wget
+        
+    - name: Install tomcat
+      shell: |
+        cd /opt
+        wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.73/bin/apache-tomcat-9.0.73.tar.gz
+        tar -xzf apache-tomcat-9.0.73.tar.gz
+        
+    - name: Copy war file to tomcat server
+      copy:
+        src: /var/lib/jenkins/workspace/jenkins_files/1_Deploy_Infrastructure_on_AWS
+        dest: apache-tomcat-9.0.73/webapps/
+        
+   - name: Restart tomcat
+     shell: |
+       chmod +x /opt/apache-tomcat-9.0.73/bin/startup.sh
+       chmod +x /opt/apache-tomcat-9.0.73/bin/shutdown.sh
