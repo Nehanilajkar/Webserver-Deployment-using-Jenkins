@@ -3,11 +3,16 @@ pipeline{
   stages{
     stage('Code Checkout')
     {
-      steps{}
+      steps{
+      checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Nehanilajkar/Webserver-Deployment-using-Jenkins.git']])
+      }
     }
     stage('Infrastructure Provisioing')
     {
-      steps{}
+      steps
+      {
+        
+      }
     }
     stage('Code Build')
     {
