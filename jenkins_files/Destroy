@@ -4,6 +4,7 @@ pipeline{
     AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
   }
+  
   stages{
     stage('Code Checkout')
     {
@@ -11,18 +12,17 @@ pipeline{
       checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Nehanilajkar/Webserver-Deployment-using-Jenkins.git']])
       }
     }
-    stage('Infrastructure Provisioing')
+    
+  stage('Infrastructure Provisioing')
     {
       steps
       {
         dir('/var/lib/jenkins/workspace/Webserver/1_Deploy_Infrastructure_on_AWS/terraform_files')
         {
-          sh 'terraform init'
-          sh 'terraform plan --var-file=var.tfvars'
-          sh 'terraform apply --var-file=var.tfvars --auto-approve'
+         
+          sh 'terraform destroy --var-file=var.tfvars --auto-approve'
         }
       }
     }
-    
-  }
+}
 }

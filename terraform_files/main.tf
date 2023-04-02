@@ -12,8 +12,8 @@ provider "aws" {
   region = "us-east-2"
 }
 
-resource "aws_key_pair" "ansible_key" {
-  key_name   = "ansible_key"
+resource "aws_key_pair" "server_key" {
+  key_name   = "server_key"
   public_key = tls_private_key.rsa.public_key_openssh
 }
 
