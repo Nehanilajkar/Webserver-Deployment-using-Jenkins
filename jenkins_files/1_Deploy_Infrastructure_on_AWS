@@ -31,7 +31,6 @@ pipeline{
     }
     stage('Code Build'){
       steps{
-        sh 'cd /var/lib/jenkins/workspace/Webserver/1_Deploy_Infrastructure_on_AWS/webapp/'
         sh 'mvn clean package'
       }
     }
