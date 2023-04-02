@@ -30,7 +30,7 @@ resource "local_file" "private_key" {
 resource "aws_instance" "web" {
   ami           = var.ami
   instance_type = var.instance_type
-  key_name = aws_key_pair.ansible_key.key_name
+  key_name = aws_key_pair.server_key.key_name
   security_groups = ["${aws_security_group.allow_tls.name}"]
   tags = {
     Name = var.instance_name
