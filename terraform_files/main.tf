@@ -38,7 +38,7 @@ resource "aws_instance" "web" {
 }
 
 resource "aws_security_group" "allow_tls" {
-  name        = "ansible_sg"
+  name        = "server_sg"
   description = "Allow TLS inbound traffic"
 
   ingress {
@@ -65,6 +65,6 @@ resource "aws_security_group" "allow_tls" {
   }
 
   tags = {
-    Name = "ansible_sg"
+    Name = "server_sg"
   }
 }
