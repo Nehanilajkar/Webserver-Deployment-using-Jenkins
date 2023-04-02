@@ -11,7 +11,10 @@ pipeline{
     }
     stage('Install Tomcat')
     { 
-      ansiblePlaybook credentialsId: 'tomcat_server_private_key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'deploy_tomcat.yml'
-    }
+      steps
+      {
+         ansiblePlaybook credentialsId: 'tomcat_server_private_key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'deploy_tomcat.yml'
+      }
+   }
   }
 }
