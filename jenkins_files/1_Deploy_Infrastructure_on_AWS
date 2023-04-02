@@ -18,6 +18,8 @@ pipeline{
         dir('/var/lib/jenkins/workspace/Webserver/1_Deploy_Infrastructure_on_AWS/terraform_files')
         {
           sh 'terraform init'
+          sh 'terraform plan'
+          sh 'terraform apply --auto-approve'
         }
       }
     }
