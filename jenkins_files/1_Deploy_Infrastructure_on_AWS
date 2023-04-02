@@ -26,6 +26,7 @@ pipeline{
     }
     stage('Code Build'){
       steps{
+        sh 'pwd'
         sh 'mvn clean package'
       }
     }
