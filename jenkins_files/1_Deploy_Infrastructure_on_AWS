@@ -17,7 +17,7 @@ pipeline{
       {
         dir('/var/lib/jenkins/workspace/Webserver/1_Deploy_Infrastructure_on_AWS/terraform_files')
         {
-          sh 'teraform init'
+          sh 'terraform init'
         }
       }
     }
