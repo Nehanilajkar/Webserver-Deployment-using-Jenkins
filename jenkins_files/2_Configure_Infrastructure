@@ -1,0 +1,17 @@
+pipeline{
+  agent any
+  tools{
+   maven 'maven-3.9.1'
+  }
+  stages{
+   stage('Code Build'){
+      steps{
+        sh 'mvn clean package'
+      }
+    }
+    stage('Install Tomcat')
+    { 
+      ansiblePlaybook credentialsId: 'tomcat_server_private_key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'deploy_tomcat.yml'
+    }
+  }
+}
