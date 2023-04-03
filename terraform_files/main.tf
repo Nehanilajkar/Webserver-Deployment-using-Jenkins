@@ -78,5 +78,6 @@ resource "local_file" "hosts_cfg" {
     {
       server_ip = aws_instance.web.network_interface.0.access_config.nat_ip
     }
+  )
   filename = "server_key.pem"
 }
