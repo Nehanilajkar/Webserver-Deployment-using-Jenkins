@@ -68,3 +68,15 @@ resource "aws_security_group" "allow_tls" {
     Name = "server_sg"
   }
 }
+
+output "server_ip"{
+  value=aws_instance.web.network_interface.0.access_config.nat_ip
+}
+
+resource "local_file" "hosts_cfg" {
+  content  = templatefile("${path.module}/templates/hosts.tpl",
+    {
+      server_ip = aws_instance.web.network_interface.0.access_config.nat_ip
+    }
+  filename = "server_key.pem"
+}
