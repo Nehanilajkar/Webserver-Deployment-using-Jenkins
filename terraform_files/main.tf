@@ -35,6 +35,20 @@ resource "aws_instance" "web" {
   tags = {
     Name = var.instance_name
   }
+  
+  provisioner "remote-exec" {
+    inline = ["echo 'Wait until SSH is ready'"]
+
+    connection {
+      type        = "ssh"
+      user        = ubuntu
+      private_key = file(local.private_key)
+      host        = aws_instance.web.public_ip
+    }
+  }
+  provisioner "local-exec" {
+    command = "ansible-playbook  -i ${aws_instance.web.public_ip}, --private-key ${local_file.private_key} ../deploy_tomcat.yml"
+  }
 }
 
 resource "aws_security_group" "allow_tls" {
@@ -69,15 +83,4 @@ resource "aws_security_group" "allow_tls" {
   }
 }
 
-output "server_ip"{
-  value=aws_instance.web.network_interface.0.access_config.nat_ip
-}
 
-resource "local_file" "hosts_cfg" {
-  content  = templatefile("${path.module}/templates/hosts.tpl",
-    {
-      server_ip = aws_instance.web.network_interface.0.access_config.nat_ip
-    }
-  )
-  filename = "server_key.pem"
-}
