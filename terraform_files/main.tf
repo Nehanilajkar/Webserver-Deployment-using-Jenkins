@@ -35,6 +35,9 @@ resource "aws_instance" "web" {
   tags = {
     Name = var.instance_name
   }
+  
+  provisioner "local-exec" {
+    command= "echo ${aws_instance.web.public_ip} >> ../inventory"
 }
 
 resource "aws_security_group" "allow_tls" {
