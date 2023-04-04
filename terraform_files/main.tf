@@ -42,7 +42,7 @@ resource "aws_instance" "web" {
     connection {
       type        = "ssh"
       user        = ubuntu
-      private_key = file(local.private_key)
+      private_key = ${local_file.private_key}
       host        = aws_instance.web.public_ip
     }
   }
