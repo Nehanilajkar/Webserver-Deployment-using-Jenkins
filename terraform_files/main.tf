@@ -37,7 +37,7 @@ resource "aws_instance" "web" {
   }
   
   provisioner "local-exec" {
-    command= "echo ${aws_instance.web.public_dns} >> ../inventory"
+    command= "echo ${aws_instance.web.public_ip} >> ../inventory"
   }
   
 }
