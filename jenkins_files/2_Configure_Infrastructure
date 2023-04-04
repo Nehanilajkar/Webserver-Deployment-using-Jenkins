@@ -13,8 +13,7 @@ pipeline{
     { 
       steps
       {
-         ansiblePlaybook credentialsId: 'tomcat_server_private_key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'deploy_tomcat.yml'
-      }
+        ansiblePlaybook become: true, credentialsId: 'server_key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'deploy_tomcat.yml'      }
    }
   }
 }
