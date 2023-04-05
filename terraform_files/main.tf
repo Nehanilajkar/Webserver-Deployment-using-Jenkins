@@ -41,7 +41,7 @@ resource "aws_instance" "web" {
   }
   
   provisioner "local-exec" {
-    command= "ansible-playbook -i ../inventory deploy_tomcat.yml"
+    command= "ansible-playbook -i ../inventory ../deploy_tomcat.yml"
   }
   
   
