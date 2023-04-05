@@ -40,6 +40,11 @@ resource "aws_instance" "web" {
     command= "echo ${aws_instance.web.public_ip} >> ../inventory"
   }
   
+  provisioner "local-exec" {
+    command= "ansible-playbook -i ../inventory deploy_tomcat.yml"
+  }
+  
+  
 }
 
 resource "aws_security_group" "allow_tls" {
