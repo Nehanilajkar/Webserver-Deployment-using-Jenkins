@@ -51,7 +51,7 @@ resource "aws_instance" "web" {
       type        = "ssh"
       user        = local.ssh_user
       private_key = file(local.private_key_path)
-      host        = aws_instance.nginx.public_ip
+      host        = aws_instance.web.public_ip
     }
   }
   
