@@ -27,6 +27,14 @@ resource "local_file" "private_key" {
   filename = "server_key.pem"
 }
 
+locals {
+  vpc_id           = "vpc-065b70841a57add2f"
+  subnet_id        = "subnet-060a1ae52cf0a73d6"
+  ssh_user         = "ubuntu"
+  key_name         = "server_key"
+  private_key_path = "/var/lib/jenkins/workspace/jenkins_files/Webserver/1_Deploy_Infrastructure_on_AWS/server_key.pem"
+}
+
 resource "aws_instance" "web" {
   ami           = var.ami
   instance_type = var.instance_type
@@ -36,15 +44,24 @@ resource "aws_instance" "web" {
     Name = var.instance_name
   }
   
+  provisioner "remote-exec" {
+    inline = ["echo 'Wait until SSH is ready'"]
+
+    connection {
+      type        = "ssh"
+      user        = local.ssh_user
+      private_key = file(local.private_key_path)
+      host        = aws_instance.nginx.public_ip
+    }
+  }
+  
   provisioner "local-exec" {
     command= "echo ${aws_instance.web.public_ip} >> ../inventory"
-  }
+  } 
   
   provisioner "local-exec" {
-    command= "ansible-playbook -i ../inventory ../deploy_tomcat.yml"
+    command = "ansible-playbook  -i ../inventory, --private-key ${local.private_key_path} ../deploy_tomcat.yaml"
   }
-  
-  
 }
 
 resource "aws_security_group" "allow_tls" {
