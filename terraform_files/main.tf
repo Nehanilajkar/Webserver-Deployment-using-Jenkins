@@ -32,7 +32,7 @@ locals {
   subnet_id        = "subnet-060a1ae52cf0a73d6"
   ssh_user         = "ubuntu"
   key_name         = "server_key"
-  private_key_path = "/var/lib/jenkins/workspace/jenkins_files/Webserver/1_Deploy_Infrastructure_on_AWS/server_key.pem"
+  private_key_path = "/var/lib/jenkins/workspace/jenkins_files/Webserver/1_Deploy_Infrastructure_on_AWS/terraform_files/server_key.pem"
 }
 
 resource "aws_instance" "web" {
