@@ -23,6 +23,8 @@ pipeline{
       {
         dir('/var/lib/jenkins/workspace/Webserver/1_Deploy_Infrastructure_on_AWS/terraform_files')
         {
+          sh 'ssh-keygen -t rsa -f /var/lib/jenkins/.ssh/id_rsa -q -P "" | echo n'
+          sh 'touch /var/lib/jenkins/.ssh/known_hosts'
           sh 'terraform init'
           sh 'terraform plan --var-file=var.tfvars'
           sh 'terraform apply --var-file=var.tfvars --auto-approve'
