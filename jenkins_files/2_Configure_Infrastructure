@@ -13,7 +13,9 @@ pipeline{
     { 
       steps
       {
-        ansiblePlaybook become: true, credentialsId: 'server_key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'deploy_tomcat.yml'      }
+        sh 'sleep 30'
+        sh 'ssh-keyscan -H -f /var/lib/jenkins/workspace/Webserver/1_Deploy_Infrastructure_on_AWS/inventory >> /var/lib/jenkins/.ssh/known_hosts'
+        ansiblePlaybook become: true, disableHostKeyChecking: true, extras: '-e ansible_user=ubuntu --flush-cache',installation: 'ansible', inventory: '/var/lib/jenkins/workspace/Webserver/1_Deploy_Infrastructure_on_AWS/inventory', playbook: '/var/lib/jenkins/workspace/Webserver/1_Deploy_Infrastructure_on_AWS/deploy_tomcat.yml'      }
    }
   }
 }
